@@ -7,7 +7,7 @@ function Square(props) {
     const {val, onClick} = props;
 
     return (
-        <div className="square" onClick={() => onClick()}>
+        <div className="square" onClick={onClick}>
             {val}
         </div>
     );
