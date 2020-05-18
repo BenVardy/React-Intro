@@ -3,28 +3,23 @@ import React from 'react';
 
 import Square from './components/Square';
 
+// Need to add some css
 import './App.css';
 
+/**
+ * The base component of the application
+ */
 class App extends React.Component {
   constructor(props) {
+    // Call super constructor
     super(props);
 
+    // This is the state of the whole application
     this.state = {
       board: Array(9).fill(''),
       xTurn: false,
       finished: false
     };
-
-    this.onSquareClick = this.onSquareClick.bind(this);
-  }
-
-  componentDidUpdate() {
-    const {board, finished} = this.state;
-    if (!finished) {
-      let winner = this.getWinner(board);
-      let draw = this.checkDraw(board);
-      if (winner || draw) this.setState({finished: true});
-    }
   }
 
   /**
@@ -38,13 +33,21 @@ class App extends React.Component {
     if (!finished && board[n] === '') {
       board[n] = xTurn ? 'X' : 'O';
 
+      let winner = this.getWinner(board);
+      let draw = this.checkDraw(board);
+
       this.setState({ 
         board, 
-        xTurn: !xTurn
+        xTurn: !xTurn,
+        finished: (winner || draw)
       });
     }
   }
 
+  /**
+   * 
+   * @param {string[][]} board The current board state
+   */
   getWinner(board) {
     const lines = [
       [0, 1, 2],
@@ -111,7 +114,9 @@ class App extends React.Component {
     return (
       <div className="game">
         {this.renderBoard()}
-      <div className="status">{status}</div>
+        <div className="status">
+          {status}
+        </div>
       </div>
     );
   }
