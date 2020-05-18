@@ -27,10 +27,10 @@ class App extends React.Component {
    * @param {number} n The index of the tile
    */
   onSquareClick(n) {
-    const {finished, xTurn} = this.state;
+    const {xTurn} = this.state;
     let board = this.state.board.slice();
 
-    if (!finished && board[n] === '') {
+    if (!this.state.finished && board[n] === '') {
       board[n] = xTurn ? 'X' : 'O';
 
       let winner = this.getWinner(board);
@@ -99,11 +99,10 @@ class App extends React.Component {
   }
 
   render() {
-    const {board, finished} = this.state;
-
+    // Change to a no break space \u00A0 = &nbsp;
     let status = '\u00A0';
-    if (finished) {
-      let winner = this.getWinner(board);
+    if (this.state.finished) {
+      let winner = this.getWinner(this.state.board);
       if (winner) {
         status = `${winner} has won!`;
       } else {
