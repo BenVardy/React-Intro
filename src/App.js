@@ -101,7 +101,7 @@ class App extends React.Component {
   render() {
     const {board, finished} = this.state;
 
-    let status = '';
+    let status = '\u00A0';
     if (finished) {
       let winner = this.getWinner(board);
       if (winner) {
@@ -112,10 +112,10 @@ class App extends React.Component {
     }
 
     return (
-      <div className="game">
-        {this.renderBoard()}
-        <div className="status">
-          {status}
+      <div className="app">
+        <div className="game">
+          {this.renderBoard()}
+          <div className="status">{status}</div>
         </div>
       </div>
     );
